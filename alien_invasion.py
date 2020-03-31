@@ -21,8 +21,10 @@ class AlienInvasion:
         # (1200, 800) -> Tuple that define window size
         pygame.display.set_caption("Alien Invasion")
 
-    @staticmethod
-    def run_game():
+        # Set the background color. Seteamos el color de fondo
+        self.bg_color = (230, 230, 230)
+
+    def run_game(self):
         """
         Start the main loop for the game
         Empieza el ciclo inicial para el juego
@@ -37,6 +39,9 @@ class AlienInvasion:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+            # Redraw the most recently drawn screen visible.
+            self.screen.fill(self.bg_color)
 
             # Make the most recently drawn screen visible
             pygame.display.flip()
