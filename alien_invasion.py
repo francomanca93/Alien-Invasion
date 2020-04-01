@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings  # Del archivo setting.py importamos la clase Settings
+from ship import Ship  # Del archivo ship.py importamos la clase Ship
 
 
 class AlienInvasion:
@@ -9,6 +10,7 @@ class AlienInvasion:
 
     def __init__(self):
         """
+        Constructor of AlienInvasion
         Initialize the game, and create game resources.
         Inicializamos el juego y creamos los recursos del juego
         """
@@ -22,6 +24,9 @@ class AlienInvasion:
         # In this screen we well draw all the game's graphical elements
         # (self.settings.screen_width, self.settings.screen_height) -> Tuple that define window size
         pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)  # Instace of the Ship class.
+        # The self argument give to Ship access to the game's resources, like a screen object
 
     def run_game(self):
         """
@@ -40,7 +45,8 @@ class AlienInvasion:
                     sys.exit()
 
             # Redraw the most recently drawn screen visible from setting.py
-            self.screen.fill(self.settings.bg_color)
+            self.screen.fill(self.settings.bg_color)  # Filling the background
+            self.ship.blitme()  # After filling the background, we draw the ship on the screen by calling ship.blitme()
 
             # Make the most recently drawn screen visible
             pygame.display.flip()
