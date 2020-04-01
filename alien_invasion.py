@@ -1,5 +1,6 @@
 import sys
 import pygame
+from settings import Settings  # Del archivo setting.py importamos la clase Settings
 
 
 class AlienInvasion:
@@ -12,17 +13,15 @@ class AlienInvasion:
         Inicializamos el juego y creamos los recursos del juego
         """
         pygame.init()  # Inicializes the background setting that Pygame needs to work properly
+        # Attributes
+        self.settings = Settings()  # Definimos un atributo setting que tenga tdo lo que tiene Setting
 
-        # Attribute
-        self.screen = pygame.display.set_mode((1200, 800))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         # we assign an object named surface (the display window) to the attribute self.screen.
         # We call this function to create a display window
         # In this screen we well draw all the game's graphical elements
-        # (1200, 800) -> Tuple that define window size
+        # (self.settings.screen_width, self.settings.screen_height) -> Tuple that define window size
         pygame.display.set_caption("Alien Invasion")
-
-        # Set the background color. Seteamos el color de fondo
-        self.bg_color = (230, 230, 230)
 
     def run_game(self):
         """
@@ -40,8 +39,8 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-            # Redraw the most recently drawn screen visible.
-            self.screen.fill(self.bg_color)
+            # Redraw the most recently drawn screen visible from setting.py
+            self.screen.fill(self.settings.bg_color)
 
             # Make the most recently drawn screen visible
             pygame.display.flip()
