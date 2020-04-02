@@ -37,19 +37,26 @@ class AlienInvasion:
         # The while loop contains an event loop and code that manages screen updates
         # event = pressing a key or moving the mouse
         while True:
-            # Watch for keyyboard and mouse events.
-            # Muestra los eventos del teclado y el mouse
-            # Event loop to listen for events and perform appropriate tasks depending on the kind of events that occur
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            self._check_events()
+            self._update_screen()
 
-            # Redraw the most recently drawn screen visible from setting.py
-            self.screen.fill(self.settings.bg_color)  # Filling the background
-            self.ship.blitme()  # After filling the background, we draw the ship on the screen by calling ship.blitme()
+    def _check_events(self):
+        """Respond to keypress and mouse events"""
+        # Watch for keyyboard and mouse events.
+        # Muestra los eventos del teclado y el mouse
+        # Event loop to listen for events and perform appropriate tasks depending on the kind of events that occur
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-            # Make the most recently drawn screen visible
-            pygame.display.flip()
+    def _update_screen(self):
+        """Update images on the screen, and flip to the new screen"""
+        # Redraw the most recently drawn screen visible from setting.py
+        self.screen.fill(self.settings.bg_color)  # Filling the background
+        self.ship.blitme()  # After filling the background, we draw the ship on the screen by calling ship.blitme()
+
+        # Make the most recently drawn screen visible
+        pygame.display.flip()
 
 
 if __name__ == '__main__':
