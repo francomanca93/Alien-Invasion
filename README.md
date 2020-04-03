@@ -1,5 +1,5 @@
 # Alien-Invasion
-I'm making a game with Python to learn how structure a project and use GitHub.
+I'm making a game with Python to learn how structure a python project and use GitHub.
 
 This project you can show in the book "Python Crash Course, 2nd Edition - Part II: Projects.
 
