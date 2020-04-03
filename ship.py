@@ -17,8 +17,8 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()  # Access to the screen with the method get_rect()
 
         # Load the ship image and get its rect.
-        SHIP = pygame.image.load("/home/franco/PycharmProjects/Alien-Invasion/images/ship.png")
-        SHIP_SCALING = pygame.transform.scale(SHIP, (70, 60))
+        SHIP = pygame.image.load("/home/franco/PycharmProjects/Alien-Invasion/images/SpaceShip.png")
+        SHIP_SCALING = pygame.transform.scale(SHIP, (70, 90))
 
         self.image = SHIP_SCALING
         self.rect = self.image.get_rect()  # With the method get_rect() we can access the ship surface's rect attribute

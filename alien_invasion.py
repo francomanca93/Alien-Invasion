@@ -3,6 +3,7 @@ import pygame
 from settings import Settings  # Del archivo setting.py importamos la clase Settings
 from ship import Ship  # Del archivo ship.py importamos la clase Ship
 from bullet import Bullet
+from alien import Alien
 
 
 class AlienInvasion:
@@ -19,12 +20,6 @@ class AlienInvasion:
         # Attributes
         self.settings = Settings()  # Definimos un atributo setting que tenga tdo lo que tiene Setting
 
-        # FULLSCREEN
-        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        # self.settings.screen_width = self.screen.get_rect().width
-        # self.settings.screen_height = self.screen.get_rect().height
-
-        # Own Window - I prefer this
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         # we assign an object named surface (the display window) to the attribute self.screen.
         # We call this function to create a display window
@@ -35,6 +30,9 @@ class AlienInvasion:
         self.ship = Ship(self)  # Instace of the Ship class.
         # The self argument give to Ship access to the game's resources, like a screen object
         self.bullets = pygame.sprite.Group()  # We create a group of bullets like a ArrayList in Java
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
     def run_game(self):
         """
@@ -101,6 +99,12 @@ class AlienInvasion:
                 self.bullets.remove(bullet)
         # print(len(self.bullets))  # We print the quantity of the bullets. We can know whether bullet disappeared
 
+    def _create_fleet(self):
+        """Create the fleet of aliens."""
+        # Make an alien.
+        alien = Alien(self)  # Intance of Alien() class
+        self.aliens.add(alien)  # Adding alien of the before object created to the aliens group
+
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen"""
         # Redraw the most recently drawn screen visible from setting.py
@@ -108,6 +112,7 @@ class AlienInvasion:
         self.ship.blitme()  # After filling the background, we draw the ship on the screen by calling ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
 
         # Make the most recently drawn screen visible
         pygame.display.flip()
