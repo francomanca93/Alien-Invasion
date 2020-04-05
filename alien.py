@@ -12,7 +12,7 @@ class Alien(Sprite):  # Alien inherit from Sprite
 
         # Load the ship image and get its rect.
         ALIEN = pygame.image.load("/home/franco/PycharmProjects/Alien-Invasion/images/AlienShip3.png")
-        ALIEN_SCALING = pygame.transform.scale(ALIEN, (50, 50))
+        ALIEN_SCALING = pygame.transform.scale(ALIEN, (70, 60))
 
         # Load the alien image and set its rect attribute.
         self.image = ALIEN_SCALING
