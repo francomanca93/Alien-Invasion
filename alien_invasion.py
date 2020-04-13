@@ -1,6 +1,10 @@
 import sys
+from time import sleep
+
 import pygame
+
 from settings import Settings  # Del archivo setting.py importamos la clase Settings
+from game_stats import GameStats
 from ship import Ship  # Del archivo ship.py importamos la clase Ship
 from bullet import Bullet
 from alien import Alien
@@ -28,7 +32,12 @@ class AlienInvasion:
         # (self.settings.screen_width, self.settings.screen_height) -> Tuple that define window size
         pygame.display.set_caption("Alien Invasion")
 
-        self.ship = Ship(self)  # Instace of the Ship class.
+        # Create an instance to store game statistics.
+        self.stats = GameStats(self)
+
+        # Create an instance of the Ship class.
+        self.ship = Ship(self)
+
         # The self argument give to Ship access to the game's resources, like a screen object
         # When you use sprites, you can group related elements in your game and act on all the grouped at once.
         self.bullets = pygame.sprite.Group()  # We create an attribute that it will create a group of bullets like a ArrayList in Java
@@ -137,7 +146,8 @@ class AlienInvasion:
 
         # Look for alien-ship collisions.
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            print("Ship hit!!!!!!")
+            # print("Ship hit!!!!!!")
+            self._ship_hit()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
@@ -184,6 +194,25 @@ class AlienInvasion:
         for alien in self.aliens.sprites():  # Para cada alien en aliens.sprites() --> grupo de aliens
             alien.rect.y += self.settings.fleet_drop_speed  #
         self.settings.fleet_direction *= -1
+
+    # ------------------------- Ship, Aliens and Bullets -------------------------------------------------
+
+    def _ship_hit(self):
+        """Respond to the ship being hit by an alien"""
+
+        # Decrement ships_left
+        self.stats.ships_left -= 1
+
+        # Get rid of any remaining aliens and bullets --> Deshacerse de cualquier de los restos de los aliens y balas
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # Create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+ 
+        # Pause
+        sleep(0.5)
 
     # ------------------------- Screen ------------------------------------------------------------------
 
