@@ -57,9 +57,12 @@ class AlienInvasion:
         # event = pressing a key or moving the mouse
         while True:
             self._check_events()  # Check for player input
-            self._update_ship()  # Update the position of the ship
-            self._update_bullets()  # Update the position of the any bullets that we have been fired.
-            self._update_alien()  # Update the position of the fleet of alien.
+            
+            if self.stats.game_active:
+                self._update_ship()  # Update the position of the ship
+                self._update_bullets()  # Update the position of the any bullets that we have been fired.
+                self._update_alien()  # Update the position of the fleet of alien.
+            
             self._update_screen()  # We use the update position to draw a new screen
 
     # ------------------------- Events ------------------------------------------------------------------
@@ -212,7 +215,7 @@ class AlienInvasion:
     def _ship_hit(self):
         """Respond to the ship being hit by an alien"""
 
-        if self.stats.ship_left > 0:
+        if self.stats.ships_left > 0:
             # Decrement ships_left
             self.stats.ships_left -= 1
 
