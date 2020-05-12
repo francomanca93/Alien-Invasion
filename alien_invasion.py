@@ -5,21 +5,22 @@ import pygame
 
 from settings import Settings  # Del archivo setting.py importamos la clase Settings
 from game_stats import GameStats
+from button import Button
 from ship import Ship  # Del archivo ship.py importamos la clase Ship
 from bullet import Bullet
 from alien import Alien
 
 
 class AlienInvasion:
-    """Overall class to manage game assets and behavior
-    Clase principal para manejar las acciones y comportamiento del juego"""
+    """Overall class to manage game assets and behavior.
+    Clase principal para manejar las acciones y comportamiento del juego."""
 
     # Contructor of AlienInvasion
     def __init__(self):
         """
-        Constructor of AlienInvasion
+        Constructor of AlienInvasion.
         Initialize the game, and create game resources.
-        Inicializamos el juego y creamos los recursos del juego
+        Inicializamos el juego y creamos los recursos del juego.
         """
         pygame.init()  # Inicializes the background setting that Pygame needs to work properly
         # Attributes
@@ -44,6 +45,9 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()  # We create an attribute that it will create a group of aliens
 
         self._create_fleet()
+
+        # Make the play button.
+        self.play_button = Button(self, "Play")
 
     # ------------------------- Run Game ------------------------------------------------------------------
 
@@ -242,6 +246,10 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        # Draw the play button if the game is inactive.
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         # Make the most recently drawn screen visible
         pygame.display.flip()
